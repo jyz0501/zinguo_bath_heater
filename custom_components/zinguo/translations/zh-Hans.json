@@ -1,0 +1,41 @@
+{
+  "title": "Zinguo 智能浴霸",
+  "config": {
+    "step": {
+      "user": {
+        "title": "配置 Zinguo 集成",
+        "description": "请输入你的 Zinguo API 凭据。",
+        "data": {
+          "username": "手机号",
+          "password": "密码"
+        }
+      },
+      "device": {
+        "title": "选择设备",
+        "description": "请选择您要控制的 Zinguo 设备。",
+        "data": {
+          "device": "设备"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到 Zinguo 服务器。",
+      "invalid_auth": "用户名或密码无效。",
+      "device_not_found": "该账号下未找到设备。",
+      "invalid_device": "无效的设备选择。",
+      "unknown": "发生未知错误。"
+    },
+    "abort": {
+      "already_configured": "该设备已配置。",
+      "reconfigure_successful": "重新配置成功。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "更新设置",
+        "description": "当前暂不支持选项修改。"
+      }
+    }
+  }
+}

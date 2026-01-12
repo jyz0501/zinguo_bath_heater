@@ -1,0 +1,14 @@
+
+{
+  "domain": "zinguo",
+  "name": "Zinguo BathHeater",
+  "icon": "icon.png",
+  "documentation": "https://github.com/jyz0501/hassio-zinguo",
+  "dependencies": [],
+  "codeowners": ["@jyz0501"],
+  "requirements": ["aiohttp>=3.8.0"],
+  "config_flow": true,
+  "version": "1.1.0",
+  "translation_key": "zinguo",
+  "iot_class": "cloud_polling"
+}

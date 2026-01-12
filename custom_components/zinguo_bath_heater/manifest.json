@@ -1,0 +1,10 @@
+{
+  "domain": "zinguo",
+  "name": "峥果智能浴霸",
+  "documentation": "https://github.com/yourrepo/zinguo",
+  "dependencies": [],
+  "codeowners": ["@user"],
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "version": "1.0.0"
+}
