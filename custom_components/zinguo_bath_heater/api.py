@@ -3,6 +3,7 @@ import hashlib
 import time
 import json
 import logging
+from .const import LOGIN_URL, DEVICES_URL, CONTROL_URL, PROTECTION_URL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,8 +21,9 @@ class ZinguoAPI:
     async def login(self):
         payload = {"account": self.account, "password": self.password_hash}
         headers = {**self.headers, "Content-Type": "text/plain;charset=UTF-8"}
-        async with aiohttp.ClientSession() as session:
-            async with session.post("https://iot.zinguo.com/api/v1/customer/login", data=json.dumps(payload), headers=headers) as resp:
+        timeout = aiohttp.ClientTimeout(total=10)  # 10秒超时
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.post(LOGIN_URL, data=json.dumps(payload), headers=headers) as resp:
                 data = await resp.json(content_type=None)
                 self.token = data.get("token")
                 return self.token
@@ -29,8 +31,9 @@ class ZinguoAPI:
     async def get_devices(self):
         if not self.token: await self.login()
         headers = {**self.headers, "x-access-token": str(self.token)}
-        url = f"https://iot.zinguo.com/api/v1/customer/devices?tt={int(time.time()*1000)}"
-        async with aiohttp.ClientSession() as session:
+        url = f"{DEVICES_URL}?tt={int(time.time()*1000)}"
+        timeout = aiohttp.ClientTimeout(total=10)  # 10秒超时
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(url, headers=headers) as resp:
                 # 处理由于 mimetype 不标准导致的解析错误
                 return await resp.json(content_type=None)
@@ -47,14 +50,16 @@ class ZinguoAPI:
             "windSwitch": 0, "ventilationSwitch": 0, "turnOffAll": 0,
             **payload
         }
-        async with aiohttp.ClientSession() as session:
-            async with session.put("https://iot.zinguo.com/api/v1/wifiyuba/yuBaControl", data=json.dumps(data), headers=headers) as resp:
+        timeout = aiohttp.ClientTimeout(total=10)  # 10秒超时
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.put(CONTROL_URL, data=json.dumps(data), headers=headers) as resp:
                 return await resp.json(content_type=None)
 
     async def set_protection(self, mac, black_setting):
         if not self.token: await self.login()
         headers = {**self.headers, "x-access-token": str(self.token), "Content-Type": "text/plain;charset=UTF-8"}
         payload = {"mac": mac, "blackSetting": black_setting}
-        async with aiohttp.ClientSession() as session:
-            async with session.post("https://iot.zinguo.com/api/v1/wifiyuba/temperatureProtection", data=json.dumps(payload), headers=headers) as resp:
+        timeout = aiohttp.ClientTimeout(total=10)  # 10秒超时
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.post(PROTECTION_URL, data=json.dumps(payload), headers=headers) as resp:
                 return await resp.json(content_type=None)
