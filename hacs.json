@@ -1,5 +1,6 @@
 {
   "name": "峥果智能浴霸",
+  "description": "峥果智能浴霸HomeAssistant云端插件，支持照明、取暖、吹风、换气等功能控制",
   "content_in_root": false,
   "domains": ["zinguo"],
   "homeassistant": "2021.10.0",
