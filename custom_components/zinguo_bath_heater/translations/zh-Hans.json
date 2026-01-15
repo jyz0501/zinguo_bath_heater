@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "峥果智能浴霸配置",
+        "description": "请输入您的峥果智能浴霸账号和密码",
+        "data": {
+          "account": "账号",
+          "password": "密码",
+          "moto_version": "电机版本",
+          "polling_interval": "轮询间隔（秒）"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "账号或密码错误",
+      "cannot_connect": "无法连接到服务器",
+      "unknown": "发生未知错误"
+    },
+    "abort": {
+      "already_configured": "该设备已配置"
+    }
+  },
+  "title": "峥果智能浴霸",
+  "description": "峥果智能浴霸HomeAssistant云端插件，支持照明、取暖、吹风、换气等功能控制"
+}
