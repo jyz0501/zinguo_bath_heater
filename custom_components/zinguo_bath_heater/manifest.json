@@ -1,9 +1,9 @@
 {
   "domain": "zinguo",
   "name": "峥果智能浴霸",
-  "documentation": "https://github.com/yourrepo/zinguo",
+  "documentation": "https://github.com/jyz0501/zinguo_bath_heater",
   "dependencies": [],
-  "codeowners": ["@user"],
+  "codeowners": ["@jyz0501", "@wl513448188"],
   "config_flow": true,
   "iot_class": "cloud_polling",
   "version": "1.0.0"
