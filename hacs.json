@@ -1,0 +1,7 @@
+{
+  "name": "峥果智能浴霸",
+  "content_in_root": false,
+  "domains": ["zinguo"],
+  "homeassistant": "2021.10.0",
+  "hacs": "1.0.0"
+}
