@@ -70,6 +70,14 @@ class ZinguoLogicSwitch(CoordinatorEntity, SwitchEntity):
         }
         payload[self.key] = 1 # 触发翻转
         
+        # 联动逻辑：开取暖 -> 必开吹风（发送到设备）
+        if target_on and self.key in ["warmingSwitch1", "warmingSwitch2"]:
+            payload["windSwitch"] = 1
+        # 联动逻辑：关吹风 -> 必关取暖（发送到设备）
+        elif not target_on and self.key == "windSwitch":
+            payload["warmingSwitch1"] = 2
+            payload["warmingSwitch2"] = 2
+        
         try:
             await self.api.send_control(payload)
             
@@ -90,7 +98,10 @@ class ZinguoLogicSwitch(CoordinatorEntity, SwitchEntity):
             self.coordinator.async_set_updated_data(new_all_data)
             
             # 延时确认刷新
-            self.hass.loop.call_later(3, lambda: asyncio.create_task(self.coordinator.async_request_refresh()))
+            async def delayed_refresh():
+                await asyncio.sleep(3)
+                await self.coordinator.async_request_refresh()
+            self.hass.async_create_task(delayed_refresh())
         except Exception as e:
             _LOGGER.error(f"操作失败: {e}")
 
@@ -139,7 +150,10 @@ class ZinguoAllOffSwitch(CoordinatorEntity, SwitchEntity):
             self.coordinator.async_set_updated_data(new_all_data)
             
             # 3秒后从云端拉取真实状态做最后对齐
-            self.hass.loop.call_later(3, lambda: asyncio.create_task(self.coordinator.async_request_refresh()))
+            async def delayed_refresh():
+                await asyncio.sleep(3)
+                await self.coordinator.async_request_refresh()
+            self.hass.async_create_task(delayed_refresh())
             
         except Exception as e:
             _LOGGER.error(f"全关操作失败: {e}")
