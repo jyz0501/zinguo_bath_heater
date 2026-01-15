@@ -1,4 +1,4 @@
-DOMAIN = "zinguo"
+DOMAIN = "zinguo_bath_heater"
 CONF_POLLING_INTERVAL = "polling_interval"
 DEFAULT_POLLING_INTERVAL = 30
 
